@@ -19,10 +19,6 @@
   <img alt="Snake no grid de contribuições" src="https://raw.githubusercontent.com/klockmt/klockmt/output/snake.svg">
 </picture>
 
-![Estatísticas](https://github-readme-stats.vercel.app/api/?username=klockmt&show_icons=true&theme=default&hide_border=true)
-
-![Linguagens](https://github-readme-stats.vercel.app/api/top-langs/?username=klockmt&layout=compact&hide_border=true)
-
 ---
 
 ## Resumo
