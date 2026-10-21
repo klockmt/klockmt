@@ -12,6 +12,19 @@
 
 ---
 
+## Atividade no GitHub
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/klockmt/klockmt/output/snake-dark.svg">
+  <img alt="Snake no grid de contribuições" src="https://raw.githubusercontent.com/klockmt/klockmt/output/snake.svg">
+</picture>
+
+![Estatísticas](https://github-readme-stats.vercel.app/api/?username=klockmt&show_icons=true&theme=default&hide_border=true)
+
+![Linguagens](https://github-readme-stats.vercel.app/api/top-langs/?username=klockmt&layout=compact&hide_border=true)
+
+---
+
 ## Resumo
 
 Técnico em Administração e acadêmico de Engenharia de Software, com inglês intermediário superior (B2). Autodidata, com domínio de Linux, Python e VBA. Identifico gargalos operacionais e desenvolvo automações sob medida que eliminam retrabalho manual e mantêm a integridade dos dados em ambientes industriais e administrativos.
@@ -64,14 +77,3 @@ Técnico em Administração e acadêmico de Engenharia de Software, com inglês 
 ## Idiomas
 
 Inglês: intermediário superior (B2). Alemão: básico (em curso).
-
-## Atividade no GitHub
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/klockmt/klockmt/output/snake-dark.svg">
-  <img alt="Snake no grid de contribuições" src="https://raw.githubusercontent.com/klockmt/klockmt/output/snake.svg">
-</picture>
-
-![Estatísticas](https://github-readme-stats.vercel.app/api/?username=klockmt&show_icons=true&theme=default&hide_border=true)
-
-![Linguagens](https://github-readme-stats.vercel.app/api/top-langs/?username=klockmt&layout=compact&hide_border=true)
