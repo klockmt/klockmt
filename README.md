@@ -24,6 +24,7 @@
 [![BASIC](https://img.shields.io/badge/BASIC-5C2D91?style=flat)](#)
 [![Shell](https://img.shields.io/badge/Shell-4EAA25?style=flat&logo=gnubash&logoColor=white)](#)
 [![ADB](https://img.shields.io/badge/ADB-3DDC84?style=flat&logo=android&logoColor=white)](#)
+[![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)](#)
 [![Android](https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white)](#)
 
 ---
