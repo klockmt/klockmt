@@ -5,10 +5,26 @@
 **Engenharia de Software (UDESC) · Automação de processos · Linux e performance**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/m-f-klock)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/klockmt)
 [![GitLab](https://img.shields.io/badge/GitLab-FC6D26?style=flat&logo=gitlab&logoColor=white)](https://gitlab.com/klock.mt)
 [![Email](https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white)](mailto:matheusfklock@gmail.com)
 
 </div>
+
+---
+
+## Stack
+
+[![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white)](#)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](#)
+[![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)](#)
+[![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white)](#)
+[![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white)](#)
+[![VBA](https://img.shields.io/badge/VBA-0078D4?style=flat&logo=microsoftexcel&logoColor=white)](#)
+[![BASIC](https://img.shields.io/badge/BASIC-5C2D91?style=flat)](#)
+[![Shell](https://img.shields.io/badge/Shell-4EAA25?style=flat&logo=gnubash&logoColor=white)](#)
+[![ADB](https://img.shields.io/badge/ADB-3DDC84?style=flat&logo=android&logoColor=white)](#)
+[![Android](https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white)](#)
 
 ---
 
