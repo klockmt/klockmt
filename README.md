@@ -55,11 +55,6 @@ Técnico em Administração e acadêmico de Engenharia de Software, com inglês 
 - **Automações em VBA (logística e PCP):** macros para montagem de romaneios (cerca de 90% menos tempo), validação de totais, geração de templates e formatação condicional com Regex. → [repositório](https://github.com/klockmt/mm-romaneio-automatico)
 - **Gestão operacional:** emissão de ordens de produção, reserva de pedidos, conferência de carregamentos, despacho de NFs e gestão de escalas.
 
-**Assistente de Produção e Logística** · Vinícola familiar · *jan/2017 – fev/2022*
-
-- Atuação em todo o ciclo produtivo, da seleção da matéria-prima ao engarrafamento e rotulagem.
-- Logística de suprimentos e captação de uvas junto a fornecedores regionais.
-- Controle de qualidade do produto final.
 
 ## Formação
 
@@ -86,10 +81,8 @@ Técnico em Administração e acadêmico de Engenharia de Software, com inglês 
 - Linux Essentials · Cisco / NDG · 2026
 - Introdução à Cibersegurança · Cisco · 2026
 - Fundamentos de TI: Hardware e Software · Fundação Bradesco · 2026
-- Mercado Financeiro de A a Z · Anbima · 2026
 - Excel Avançado · Fundação Bradesco · 2025
-- Inglês B2 · EF SET · 2025
 
 ## Idiomas
 
-Inglês: intermediário superior (B2). Alemão: básico (em curso).
+Inglês: intermediário superior (B2).
