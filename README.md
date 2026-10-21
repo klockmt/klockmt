@@ -68,9 +68,8 @@ Inglês: intermediário superior (B2). Alemão: básico (em curso).
 ## Atividade no GitHub
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/klockmt/klockmt/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/klockmt/klockmt/output/pacman-contribution-graph.svg">
-  <img alt="Pac-Man no grid de contribuições" src="https://raw.githubusercontent.com/klockmt/klockmt/output/pacman-contribution-graph.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/klockmt/klockmt/output/snake-dark.svg">
+  <img alt="Snake no grid de contribuições" src="https://raw.githubusercontent.com/klockmt/klockmt/output/snake.svg">
 </picture>
 
 ![Estatísticas](https://github-readme-stats.vercel.app/api/?username=klockmt&show_icons=true&theme=default&hide_border=true)
