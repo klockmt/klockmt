@@ -82,7 +82,3 @@ Técnico em Administração e acadêmico de Engenharia de Software, com inglês 
 - Introdução à Cibersegurança · Cisco · 2026
 - Fundamentos de TI: Hardware e Software · Fundação Bradesco · 2026
 - Excel Avançado · Fundação Bradesco · 2025
-
-## Idiomas
-
-Inglês: intermediário superior (B2).
