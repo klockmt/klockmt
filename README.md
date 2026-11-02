@@ -59,10 +59,16 @@ Técnico em Administração e acadêmico de Engenharia de Software, com inglês 
 
 | Projeto | Descrição | Stack |
 |---|---|---|
-| [inventario-automacao](https://github.com/klockmt/mm-inventario-automacao) | Lançamento automático de inventário a partir de planilha, com reversão | Python, Tkinter |
-| [mm-romaneio-automatico](https://github.com/klockmt/mm-romaneio-automatico) | Geração de romaneios de carga por pedido | VBA |
+| [mm-inventario-automacao](https://github.com/klockmt/mm-inventario-automacao) | Lançamento automático de inventário a partir de planilha, com reversão | Python, Tkinter |
+| [relatorios-pcp](https://github.com/klockmt/relatorios-pcp) | Automação de relatórios em Excel com VBA e Power Query | VBA, Power Query |
+| [tuned-next](https://github.com/klockmt/tuned-next) | Integração de TuneD, tuned-ppd e zram-generator para gerenciamento de energia no Linux | Python, Linux |
 | [Best-Edge](https://github.com/klockmt/Best-Edge) | Debloat e ajustes de desempenho para Android, sem root | Shell, ADB |
-| [tuned-next](https://gitlab.com/klock.mt) | Integração de TuneD, tuned-ppd e zram-generator | Linux |
+| [Best-Galaxy](https://github.com/klockmt/Best-Galaxy) | Script de ajustes para celulares Samsung Galaxy e outros | Shell, ADB |
+| [hanoip-pmos](https://github.com/klockmt/hanoip-pmos) | Port do postmarketOS para o Moto G60, como servidor headless | Shell, Linux |
+| [hanoip-mainline-server](https://github.com/klockmt/hanoip-mainline-server) | postmarketOS com kernel Linux mainline e U-Boot no Moto G60 (fork) | C, Linux |
+| [hanoip-kronix](https://github.com/klockmt/hanoip-kronix) | Kernel customizado para o Moto G60 com KernelSU Next | C |
+| [Udesc](https://github.com/klockmt/Udesc) | Exercícios e questões do curso de Engenharia de Software | Java |
+| [evox.github.io](https://github.com/klockmt/evox.github.io) | Site de suplementos Evox | HTML |
 
 ## Certificações e cursos
 
