@@ -45,17 +45,6 @@
 
 Técnico em Administração e acadêmico de Engenharia de Software, com inglês intermediário superior (B2). Autodidata, com domínio de Linux, Python e VBA. Identifico gargalos operacionais e desenvolvo automações sob medida que eliminam retrabalho manual e mantêm a integridade dos dados em ambientes industriais e administrativos.
 
-## Experiência
-
-**Auxiliar Administrativo · PCP** · Indústria · *mar/2026 – presente*
-
-- **Automação de inventário (Python, PyAutoGUI):** reduziu o lançamento de inventário de 2–3 dias para cerca de 2 horas, sem depender do TI. → [repositório](https://github.com/klockmt/mm-inventario-automacao)
-- **Plano de produção automatizado:** substituiu comandos manuais de banco de dados por automação de interface para quebra e lançamento de pedidos.
-- **Remodelagem de ordens de produção:** novo modelo de OPs sob demanda, com banco de itens reestruturado e ordenação por tempo de setup.
-- **Automações em VBA (logística e PCP):** macros para montagem de romaneios (cerca de 90% menos tempo), validação de totais, geração de templates e formatação condicional com Regex. → [repositório](https://github.com/klockmt/mm-romaneio-automatico)
-- **Gestão operacional:** emissão de ordens de produção, reserva de pedidos, conferência de carregamentos, despacho de NFs e gestão de escalas.
-
-
 ## Formação
 
 - **Bacharelado em Engenharia de Software** · UDESC (CEAVI) · *2026 – em andamento*
