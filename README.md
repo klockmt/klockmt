@@ -54,7 +54,6 @@ Técnico em Administração e acadêmico de Engenharia de Software, com inglês 
 
 - **Automação e TI:** Python (PyAutoGUI, openpyxl), VBA (macros, Regex), Shell, Linux (performance tuning, scripts, terminal), Git
 - **Administrativo e PCP:** Pacote Office, Google Workspace, ERP, rotinas de PCP, controle de produção e logística
-- **Financeiro:** análise fundamentalista de ativos, seleção de ações, gestão de carteira
 
 ## Projetos
 
