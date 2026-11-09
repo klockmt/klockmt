@@ -2,7 +2,7 @@
 
 # Matheus Felipe Klock
 
-**Engenharia de Software (UDESC) · Automação de processos · Linux e performance**
+**Software Engineering (UDESC) · Process Automation · Linux and Performance**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/m-f-klock)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/klockmt)
@@ -32,47 +32,48 @@
 
 ---
 
-## Atividade no GitHub
+## GitHub Activity
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/klockmt/klockmt/output/snake-dark.svg">
-  <img alt="Snake no grid de contribuições" src="https://raw.githubusercontent.com/klockmt/klockmt/output/snake.svg">
+  <img alt="Snake across the contribution graph" src="https://raw.githubusercontent.com/klockmt/klockmt/output/snake.svg">
 </picture>
 
 ---
 
-## Resumo
+## Summary
 
-Técnico em Administração e acadêmico de Engenharia de Software, com inglês intermediário superior (B2). Autodidata, com domínio de Linux, Python e VBA. Identifico gargalos operacionais e desenvolvo automações sob medida que eliminam retrabalho manual e mantêm a integridade dos dados em ambientes industriais e administrativos.
+Administrative technician and Software Engineering student, with upper-intermediate English (B2). Self-taught, with strong skills in Linux, Python and VBA. I identify operational bottlenecks and build custom automations that remove manual rework and keep data consistent in industrial and administrative environments.
 
-## Formação
+## Education
 
-- **Bacharelado em Engenharia de Software** · UDESC (CEAVI) · *2026 – em andamento*
-- **Técnico em Administração (integrado ao ensino médio)** · CEDUP Hermann Hering · *concluído em dez/2025*
+- **Bachelor's in Software Engineering** · UDESC (CEAVI) · *2026 – ongoing*
+- **Technical degree in Business Administration (integrated with high school)** · CEDUP Hermann Hering · *completed Dec 2025*
 
-## Competências
+## Skills
 
-- **Automação e TI:** Python (PyAutoGUI, openpyxl), VBA (macros, Regex), Shell, Linux (performance tuning, scripts, terminal), Git
-- **Administrativo e PCP:** Pacote Office, Google Workspace, ERP, rotinas de PCP, controle de produção e logística
+- **Automation and IT:** Python (PyAutoGUI, openpyxl), VBA (macros, Regex), Shell, Linux (performance tuning, scripting, terminal), Git
+- **Administration and PCP:** Microsoft Office, Google Workspace, ERP, PCP routines, production control and logistics
 
-## Projetos
+## Projects
 
-| Projeto | Descrição | Stack |
+| Project | Description | Stack |
 |---|---|---|
-| [mm-inventario-automacao](https://github.com/klockmt/mm-inventario-automacao) | Lançamento automático de inventário a partir de planilha, com reversão | Python, Tkinter |
-| [relatorios-pcp](https://github.com/klockmt/relatorios-pcp) | Automação de relatórios em Excel com VBA e Power Query | VBA, Power Query |
-| [tuned-next](https://github.com/klockmt/tuned-next) | Integração de TuneD, tuned-ppd e zram-generator para gerenciamento de energia no Linux | Python, Linux |
-| [Best-Edge](https://github.com/klockmt/Best-Edge) | Debloat e ajustes de desempenho para Android, sem root | Shell, ADB |
-| [Best-Galaxy](https://github.com/klockmt/Best-Galaxy) | Script de ajustes para celulares Samsung Galaxy e outros | Shell, ADB |
-| [hanoip-pmos](https://github.com/klockmt/hanoip-pmos) | Port do postmarketOS para o Moto G60, como servidor headless | Shell, Linux |
-| [hanoip-mainline-server](https://github.com/klockmt/hanoip-mainline-server) | postmarketOS com kernel Linux mainline e U-Boot no Moto G60 (fork) | C, Linux |
-| [hanoip-kronix](https://github.com/klockmt/hanoip-kronix) | Kernel customizado para o Moto G60 com KernelSU Next | C |
-| [Udesc](https://github.com/klockmt/Udesc) | Exercícios e questões do curso de Engenharia de Software | Java |
-| [evox.github.io](https://github.com/klockmt/evox.github.io) | Site de suplementos Evox | HTML |
+| [mm-inventario-automacao](https://github.com/klockmt/mm-inventario-automacao) | Automatic inventory entry from a spreadsheet, with rollback | Python, Tkinter |
+| [relatorios-pcp](https://github.com/klockmt/relatorios-pcp) | Excel report automation with VBA and Power Query | VBA, Power Query |
+| [tuned-next](https://github.com/klockmt/tuned-next) | Integration of TuneD, tuned-ppd and zram-generator for power management on Linux | Python, Linux |
+| [Best-Edge](https://github.com/klockmt/Best-Edge) | Debloat and performance tuning for Android, no root required | Shell, ADB |
+| [Best-Galaxy](https://github.com/klockmt/Best-Galaxy) | Tuning scripts for Samsung Galaxy and other phones | Shell, ADB |
+| [hanoip-pmos](https://github.com/klockmt/hanoip-pmos) | postmarketOS port for the Moto G60, as a headless server | Shell, Linux |
+| [hanoip-mainline-server](https://github.com/klockmt/hanoip-mainline-server) | postmarketOS with mainline Linux kernel and U-Boot on the Moto G60 (fork) | C, Linux |
+| [hanoip-kronix](https://github.com/klockmt/hanoip-kronix) | Custom kernel for the Moto G60 with KernelSU Next | C |
+| [Udesc](https://github.com/klockmt/Udesc) | Exercises and assignments from the Software Engineering course | Java |
+| [evox.github.io](https://github.com/klockmt/evox.github.io) | Evox supplements website | HTML |
 
-## Certificações e cursos
+## Certifications and Courses
 
+- From Basics to Advanced with NestJS (7h) · SEMESO 2026, UDESC Alto Vale · 2026
 - Linux Essentials · Cisco / NDG · 2026
-- Introdução à Cibersegurança · Cisco · 2026
-- Fundamentos de TI: Hardware e Software · Fundação Bradesco · 2026
-- Excel Avançado · Fundação Bradesco · 2025
+- Introduction to Cybersecurity · Cisco · 2026
+- Fundamentos de TI: Hardware e Software (IT Fundamentals: Hardware and Software) · Fundação Bradesco · 2026
+- Advanced Excel · Fundação Bradesco · 2025
