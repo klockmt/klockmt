@@ -72,7 +72,7 @@ Administrative technician and Software Engineering student, with upper-intermedi
 
 ## Certifications and Courses
 
-- From Basics to Advanced with NestJS (7h) · SEMESO 2026, UDESC Alto Vale · 2026
+- From Basics to Advanced with NestJS · SEMESO 2026, UDESC Alto Vale · 2026
 - Linux Essentials · Cisco / NDG · 2026
 - Introduction to Cybersecurity · Cisco · 2026
 - Fundamentos de TI: Hardware e Software (IT Fundamentals: Hardware and Software) · Fundação Bradesco · 2026
