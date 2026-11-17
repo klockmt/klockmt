@@ -14,9 +14,10 @@ from typing import Final, cast
 from xml.sax.saxutils import escape
 
 API_ROOT: Final[str] = "https://api.github.com"
-SEARCH_PAGE_SIZE: Final[int] = 100
-SEARCH_MAX_PAGES: Final[int] = 10
-TOP_LANGUAGES: Final[int] = 8
+PAGE_SIZE: Final[int] = 100
+MAX_PAGES: Final[int] = 10
+SKIPPABLE_REPO_STATUS: Final[frozenset[int]] = frozenset({404, 409})
+TOP_LANGUAGES: Final[int] = 5
 BAR_MAX_WIDTH: Final[int] = 260
 ROW_HEIGHT: Final[int] = 30
 LABEL_WIDTH: Final[int] = 110
@@ -64,20 +65,63 @@ def github_fetch(url: str, token: str) -> object:
 
 
 def list_authored_commits(author: str, fetch: Fetch) -> list[CommitRef]:
+    refs = search_public_commits(author, fetch) + list_owned_repo_commits(author, fetch)
+    unique = {(ref.repo, ref.sha): ref for ref in refs}
+    return list(unique.values())
+
+
+def search_public_commits(author: str, fetch: Fetch) -> list[CommitRef]:
     refs: list[CommitRef] = []
-    for page in range(1, SEARCH_MAX_PAGES + 1):
+    for page in range(1, MAX_PAGES + 1):
         query = urllib.parse.urlencode(
-            {"q": f"author:{author}", "per_page": SEARCH_PAGE_SIZE, "page": page}
+            {"q": f"author:{author}", "per_page": PAGE_SIZE, "page": page}
         )
         payload = cast(dict[str, object], fetch(f"{API_ROOT}/search/commits?{query}"))
         items = cast(list[dict[str, object]], payload["items"])
-        refs.extend(_commit_ref(item) for item in items)
-        if len(items) < SEARCH_PAGE_SIZE:
+        refs.extend(_search_ref(item) for item in items)
+        if len(items) < PAGE_SIZE:
             break
     return refs
 
 
-def _commit_ref(item: dict[str, object]) -> CommitRef:
+def list_owned_repo_commits(author: str, fetch: Fetch) -> list[CommitRef]:
+    refs: list[CommitRef] = []
+    for repo in list_owned_repos(fetch):
+        refs.extend(list_repo_commits(repo, author, fetch))
+    return refs
+
+
+def list_owned_repos(fetch: Fetch) -> list[str]:
+    names: list[str] = []
+    for page in range(1, MAX_PAGES + 1):
+        url = (
+            f"{API_ROOT}/user/repos?affiliation=owner,collaborator"
+            f"&visibility=all&per_page={PAGE_SIZE}&page={page}"
+        )
+        items = cast(list[dict[str, object]], fetch(url))
+        names.extend(str(item["full_name"]) for item in items if not item["fork"])
+        if len(items) < PAGE_SIZE:
+            break
+    return names
+
+
+def list_repo_commits(repo: str, author: str, fetch: Fetch) -> list[CommitRef]:
+    refs: list[CommitRef] = []
+    for page in range(1, MAX_PAGES + 1):
+        url = f"{API_ROOT}/repos/{repo}/commits?author={author}&per_page={PAGE_SIZE}&page={page}"
+        try:
+            items = cast(list[dict[str, object]], fetch(url))
+        except urllib.error.HTTPError as error:
+            if error.code not in SKIPPABLE_REPO_STATUS:
+                raise
+            return refs
+        refs.extend(CommitRef(repo=repo, sha=str(item["sha"])) for item in items)
+        if len(items) < PAGE_SIZE:
+            break
+    return refs
+
+
+def _search_ref(item: dict[str, object]) -> CommitRef:
     repository = cast(dict[str, str], item["repository"])
     return CommitRef(repo=repository["full_name"], sha=cast(str, item["sha"]))
 
@@ -132,7 +176,7 @@ def _svg_row(index: int, name: str, count: int, largest: int, total_commits: int
 
 def main(argv: list[str]) -> int:
     output_dir = Path(argv[1])
-    token = os.environ["GITHUB_TOKEN"]
+    token = os.environ["PROFILE_TOKEN"]
     author = os.environ.get("COMMIT_AUTHOR", "klockmt")
     fetch: Fetch = lambda url: github_fetch(url, token)
     refs = list_authored_commits(author, fetch)

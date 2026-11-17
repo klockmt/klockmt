@@ -28,7 +28,7 @@ jobs:
 
       - name: Gerar SVG a partir dos commits
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
           COMMIT_AUTHOR: ${{ github.repository_owner }}
         run: python scripts/commit_languages.py dist
 
