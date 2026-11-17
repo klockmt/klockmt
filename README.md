@@ -64,8 +64,8 @@ Administrative technician and Software Engineering student, with upper-intermedi
 | [tuned-next](https://github.com/klockmt/tuned-next) | Integration of TuneD, tuned-ppd and zram-generator for power management on Linux | Python, Linux |
 | [Best-Edge](https://github.com/klockmt/Best-Edge) | Debloat and performance tuning for Android, no root required | Shell, ADB |
 | [Best-Galaxy](https://github.com/klockmt/Best-Galaxy) | Tuning scripts for Samsung Galaxy and other phones | Shell, ADB |
-| [hanoip-pmos](https://github.com/klockmt/hanoip-pmos) | postmarketOS port for the Moto G60, as a headless server | Shell, Linux |
-| [hanoip-mainline-server](https://github.com/klockmt/hanoip-mainline-server) | postmarketOS with mainline Linux kernel and U-Boot on the Moto G60 (fork) | C, Linux |
+| [arch-to-go](https://github.com/klockmt/arch-to-go) | Portable Arch Linux installer for USB drives (UEFI, Limine), with declarative TOML config | Rust, Limine |
+| [hanoip-mainline-server](https://github.com/klockmt/hanoip-mainline-server) | Mainline Linux 7.3 and Duranium running as a headless server on the Moto G60 | C, Shell, Linux |
 | [hanoip-kronix](https://github.com/klockmt/hanoip-kronix) | Custom kernel for the Moto G60 with KernelSU Next | C |
 | [Udesc](https://github.com/klockmt/Udesc) | Exercises and assignments from the Software Engineering course | Java |
 | [evox.github.io](https://github.com/klockmt/evox.github.io) | Evox supplements website | HTML |
