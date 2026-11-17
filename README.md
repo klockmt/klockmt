@@ -59,15 +59,15 @@ Administrative technician and Software Engineering student, with upper-intermedi
 
 | Project | Description | Stack |
 |---|---|---|
-| [mm-inventario-automacao](https://github.com/klockmt/mm-inventario-automacao) | Automatic inventory entry from a spreadsheet, with rollback | Python, Tkinter |
-| [relatorios-pcp](https://github.com/klockmt/relatorios-pcp) | Excel report automation with VBA and Power Query | VBA, Power Query |
+| [hanoip-mainline-server](https://github.com/klockmt/hanoip-mainline-server) | Mainline Linux 7.3 and Duranium running as a headless server on the Moto G60 | C, Shell, Linux |
 | [tuned-next](https://github.com/klockmt/tuned-next) | Integration of TuneD, tuned-ppd and zram-generator for power management on Linux | Python, Linux |
+| [Udesc](https://github.com/klockmt/Udesc) | Exercises and assignments from the Software Engineering course | Java |
+| [arch-to-go](https://github.com/klockmt/arch-to-go) | Portable Arch Linux installer for USB drives (UEFI, Limine), with declarative TOML config | Rust, Limine |
 | [Best-Edge](https://github.com/klockmt/Best-Edge) | Debloat and performance tuning for Android, no root required | Shell, ADB |
 | [Best-Galaxy](https://github.com/klockmt/Best-Galaxy) | Tuning scripts for Samsung Galaxy and other phones | Shell, ADB |
-| [arch-to-go](https://github.com/klockmt/arch-to-go) | Portable Arch Linux installer for USB drives (UEFI, Limine), with declarative TOML config | Rust, Limine |
-| [hanoip-mainline-server](https://github.com/klockmt/hanoip-mainline-server) | Mainline Linux 7.3 and Duranium running as a headless server on the Moto G60 | C, Shell, Linux |
 | [hanoip-kronix](https://github.com/klockmt/hanoip-kronix) | Custom kernel for the Moto G60 with KernelSU Next | C |
-| [Udesc](https://github.com/klockmt/Udesc) | Exercises and assignments from the Software Engineering course | Java |
+| [mm-inventario-automacao](https://github.com/klockmt/mm-inventario-automacao) | Automatic inventory entry from a spreadsheet, with rollback | Python, Tkinter |
+| [relatorios-pcp](https://github.com/klockmt/relatorios-pcp) | Excel report automation with VBA and Power Query | VBA, Power Query |
 | [evox.github.io](https://github.com/klockmt/evox.github.io) | Evox supplements website | HTML |
 
 ## Certifications and Courses
