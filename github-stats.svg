@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="140" font-family="Segoe UI, Ubuntu, sans-serif" font-size="14">
+  <text x="0" y="32" fill="#888">Commits</text>
+  <text x="160" y="32" font-weight="600" fill="#2f81f7">805</text>
+  <text x="0" y="62" fill="#888">Pull requests</text>
+  <text x="160" y="62" font-weight="600" fill="#2f81f7">9</text>
+  <text x="0" y="92" fill="#888">Issues</text>
+  <text x="160" y="92" font-weight="600" fill="#2f81f7">58</text>
+  <text x="0" y="122" fill="#888">Stars</text>
+  <text x="160" y="122" font-weight="600" fill="#2f81f7">2</text>
+</svg>
