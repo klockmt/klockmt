@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -16,6 +17,7 @@ from xml.sax.saxutils import escape
 API_ROOT: Final[str] = "https://api.github.com"
 PAGE_SIZE: Final[int] = 100
 MAX_PAGES: Final[int] = 10
+MAX_ATTEMPTS: Final[int] = 4
 SKIPPABLE_REPO_STATUS: Final[frozenset[int]] = frozenset({404, 409})
 TOP_LANGUAGES: Final[int] = 5
 BAR_MAX_WIDTH: Final[int] = 260
@@ -67,6 +69,24 @@ def github_fetch(url: str, token: str) -> object:
         detail = error.read().decode("utf-8", errors="replace")
         print(f"GitHub {error.code} for {url}: {detail}", file=sys.stderr)
         raise
+
+
+def retrying(
+    fetch: Fetch,
+    attempts: int = MAX_ATTEMPTS,
+    pause: Callable[[float], None] = time.sleep,
+) -> Fetch:
+    def call(url: str) -> object:
+        for attempt in range(attempts):
+            try:
+                return fetch(url)
+            except urllib.error.HTTPError as error:
+                if error.code < 500 or attempt == attempts - 1:
+                    raise
+                pause(2.0**attempt)
+        raise RuntimeError("attempts must be at least 1")
+
+    return call
 
 
 def list_authored_commits(author: str, fetch: Fetch) -> list[CommitRef]:
@@ -183,7 +203,7 @@ def main(argv: list[str]) -> int:
     output_dir = Path(argv[1])
     token = os.environ["PROFILE_TOKEN"]
     author = os.environ.get("COMMIT_AUTHOR", "klockmt")
-    fetch: Fetch = lambda url: github_fetch(url, token)
+    fetch: Fetch = retrying(lambda url: github_fetch(url, token))
     refs = list_authored_commits(author, fetch)
     counts = count_commits_per_language(refs, fetch)
     output_dir.mkdir(parents=True, exist_ok=True)

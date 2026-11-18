@@ -13,6 +13,7 @@ from commit_languages import (
     list_owned_repos,
     list_repo_commits,
     render_svg,
+    retrying,
 )
 
 
@@ -67,6 +68,49 @@ def make_commit(sha: str) -> dict[str, object]:
 
 def make_search_item(repo: str, sha: str) -> dict[str, object]:
     return {"sha": sha, "repository": {"full_name": repo}}
+
+
+class FlakyServerFetch:
+    def __init__(self, failures: int, status: int = 500) -> None:
+        self.failures = failures
+        self.status = status
+        self.calls = 0
+
+    def __call__(self, url: str) -> object:
+        self.calls += 1
+        if self.calls <= self.failures:
+            raise urllib.error.HTTPError(url, self.status, "Server Error", None, None)
+        return {"ok": True}
+
+
+class RecordingPause:
+    def __init__(self) -> None:
+        self.delays: list[float] = []
+
+    def __call__(self, seconds: float) -> None:
+        self.delays.append(seconds)
+
+
+class RetryingTest(unittest.TestCase):
+    def test_retries_server_errors_with_exponential_pause(self) -> None:
+        flaky = FlakyServerFetch(failures=2)
+        pause = RecordingPause()
+        result = retrying(flaky, attempts=4, pause=pause)("https://api.github.com/x")
+        self.assertEqual(result, {"ok": True})
+        self.assertEqual(flaky.calls, 3)
+        self.assertEqual(pause.delays, [1.0, 2.0])
+
+    def test_gives_up_after_last_attempt(self) -> None:
+        flaky = FlakyServerFetch(failures=10)
+        with self.assertRaises(urllib.error.HTTPError):
+            retrying(flaky, attempts=3, pause=RecordingPause())("https://api.github.com/x")
+        self.assertEqual(flaky.calls, 3)
+
+    def test_does_not_retry_client_errors(self) -> None:
+        flaky = FlakyServerFetch(failures=10, status=404)
+        with self.assertRaises(urllib.error.HTTPError):
+            retrying(flaky, attempts=4, pause=RecordingPause())("https://api.github.com/x")
+        self.assertEqual(flaky.calls, 1)
 
 
 class ListAuthoredCommitsTest(unittest.TestCase):
