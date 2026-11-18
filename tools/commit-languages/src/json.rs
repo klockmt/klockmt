@@ -33,6 +33,13 @@ impl Json {
         }
     }
 
+    pub fn as_u64(&self) -> Option<u64> {
+        match self {
+            Json::Number(value) if *value >= 0.0 => Some(*value as u64),
+            _ => None,
+        }
+    }
+
     pub fn as_array(&self) -> Option<&[Json]> {
         match self {
             Json::Array(items) => Some(items),

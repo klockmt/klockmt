@@ -81,6 +81,6 @@ Administrative technician and Software Engineering student, with upper-intermedi
 ## GitHub Stats
 
 <p align="center">
-  <img alt="GitHub stats" src="https://github-readme-stats.vercel.app/api?username=klockmt&show_icons=true&hide_border=true" />
+  <img alt="GitHub stats" src="https://raw.githubusercontent.com/klockmt/klockmt/output/github-stats.svg" />
   <img alt="Commit languages" src="https://raw.githubusercontent.com/klockmt/klockmt/output/commit-languages.svg" />
 </p>
