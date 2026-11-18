@@ -1,0 +1,39 @@
+name: Gerar gráfico de linguagens por commit
+
+on:
+  schedule:
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+  push:
+    branches: [beta, main]
+    paths:
+      - "tools/commit-languages/**"
+      - ".github/workflows/commit-languages.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Testar o gerador
+        run: cargo test --locked --manifest-path tools/commit-languages/Cargo.toml
+
+      - name: Gerar SVG a partir dos commits
+        env:
+          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
+          COMMIT_AUTHOR: ${{ github.repository_owner }}
+        run: cargo run --release --locked --manifest-path tools/commit-languages/Cargo.toml -- dist
+
+      - name: Publicar na branch output
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+          keep_history: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

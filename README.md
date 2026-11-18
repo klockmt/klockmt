@@ -77,3 +77,10 @@ Administrative technician and Software Engineering student, with upper-intermedi
 - Introduction to Cybersecurity · Cisco · 2026
 - Fundamentos de TI: Hardware e Software (IT Fundamentals: Hardware and Software) · Fundação Bradesco · 2026
 - Advanced Excel · Fundação Bradesco · 2025
+
+## GitHub Stats
+
+<p align="center">
+  <img alt="GitHub stats" src="https://github-readme-stats.vercel.app/api?username=klockmt&show_icons=true&hide_border=true" />
+  <img alt="Commit languages" src="https://raw.githubusercontent.com/klockmt/klockmt/output/commit-languages.svg" />
+</p>
