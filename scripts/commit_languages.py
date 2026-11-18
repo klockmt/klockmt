@@ -60,8 +60,13 @@ def github_fetch(url: str, token: str) -> object:
             "Accept": "application/vnd.github+json",
         },
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as error:
+        detail = error.read().decode("utf-8", errors="replace")
+        print(f"GitHub {error.code} for {url}: {detail}", file=sys.stderr)
+        raise
 
 
 def list_authored_commits(author: str, fetch: Fetch) -> list[CommitRef]:
