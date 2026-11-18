@@ -7,7 +7,7 @@ on:
   push:
     branches: [beta, main]
     paths:
-      - "scripts/commit_languages.py"
+      - "tools/commit-languages/**"
       - ".github/workflows/commit-languages.yml"
 
 permissions:
@@ -19,18 +19,15 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
 
       - name: Testar o gerador
-        run: python -m unittest discover -s scripts -p "test_*.py"
+        run: cargo test --locked --manifest-path tools/commit-languages/Cargo.toml
 
       - name: Gerar SVG a partir dos commits
         env:
           PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
           COMMIT_AUTHOR: ${{ github.repository_owner }}
-        run: python scripts/commit_languages.py dist
+        run: cargo run --release --locked --manifest-path tools/commit-languages/Cargo.toml -- dist
 
       - name: Publicar na branch output
         uses: crazy-max/ghaction-github-pages@v3.1.0
