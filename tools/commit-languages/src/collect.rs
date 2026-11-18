@@ -6,9 +6,7 @@ use crate::json::Json;
 pub const PAGE_SIZE: usize = 100;
 pub const MAX_PAGES: usize = 10;
 
-// GitHub answers 500 to every retry for this repository's commit listing, so the
-// run would never finish. Remove it from this list once that is investigated.
-const EXCLUDED_REPOS: &[&str] = &["klockmt/hanoip-kronix"];
+const EXCLUDED_REPOS: &[&str] = &[];
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct CommitRef {
@@ -215,12 +213,12 @@ mod tests {
     }
 
     #[test]
-    fn skips_forks_and_excluded_repositories() {
+    fn skips_forks_and_keeps_every_owned_repository() {
         let api = FakeGithubApi::new()
             .with_body(SEARCH_PAGE_1, r#"{"items":[]}"#)
             .with_body(
                 REPOS_PAGE_1,
-                r#"[{"full_name":"klockmt/mine","fork":false},{"full_name":"klockmt/fork","fork":true},{"full_name":"klockmt/hanoip-kronix","fork":false}]"#,
+                r#"[{"full_name":"klockmt/mine","fork":false},{"full_name":"klockmt/fork","fork":true}]"#,
             )
             .with_body(&repo_commits_path("klockmt/mine", 1), r#"[{"sha":"m1"}]"#);
         let commits = list_authored_commits("klockmt", &api).unwrap();
@@ -234,7 +232,7 @@ mod tests {
         assert!(!api
             .requested_paths()
             .iter()
-            .any(|path| path.contains("hanoip-kronix")));
+            .any(|path| path.contains("klockmt/fork/")));
     }
 
     #[test]
