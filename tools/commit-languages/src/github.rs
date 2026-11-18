@@ -1,11 +1,14 @@
 use std::fmt;
 use std::io::Write;
 use std::process::{Command, Stdio};
+use std::thread;
 use std::time::Duration;
 
 use crate::json::{self, Json};
 
 pub const API_ROOT: &str = "https://api.github.com";
+const REQUEST_SPACING: Duration = Duration::from_millis(250);
+const RATE_LIMIT_PAUSE: Duration = Duration::from_secs(60);
 
 #[derive(Debug)]
 pub enum ApiError {
@@ -31,6 +34,17 @@ impl ApiError {
 
     fn is_server_error(&self) -> bool {
         matches!(self, ApiError::Status { code, .. } if *code >= 500)
+    }
+
+    // Secondary limits arrive as 403 (or 429) and clear only after a minute or more.
+    fn is_rate_limited(&self) -> bool {
+        match self {
+            ApiError::Status { code: 429, .. } => true,
+            ApiError::Status {
+                code: 403, body, ..
+            } => body.contains("secondary rate limit"),
+            _ => false,
+        }
     }
 }
 
@@ -69,6 +83,8 @@ impl CurlApi {
 
 impl GithubApi for CurlApi {
     fn get(&self, path: &str) -> Result<Json, ApiError> {
+        // Back-to-back requests trip GitHub's secondary limit even under the hourly quota.
+        thread::sleep(REQUEST_SPACING);
         let mut child = Command::new("curl")
             .args(["-sS", "-w", "\n%{http_code}", "-H", "@-"])
             .arg(format!("{API_ROOT}{path}"))
@@ -139,6 +155,10 @@ impl<A: GithubApi> GithubApi for RetryingApi<A> {
         let mut attempt: u32 = 0;
         loop {
             match self.inner.get(path) {
+                Err(error) if error.is_rate_limited() && attempt + 1 < self.attempts => {
+                    (self.pause)(RATE_LIMIT_PAUSE);
+                    attempt += 1;
+                }
                 Err(error) if error.is_server_error() && attempt + 1 < self.attempts => {
                     (self.pause)(Duration::from_secs(1 << attempt));
                     attempt += 1;
@@ -201,6 +221,30 @@ mod tests {
                 vec![Duration::from_secs(1), Duration::from_secs(2)]
             )
         });
+    }
+
+    #[test]
+    fn waits_a_minute_when_rate_limited() {
+        PAUSES.with(|pauses| pauses.borrow_mut().clear());
+        let scripted = ScriptedServerErrors {
+            failures_left: Cell::new(1),
+            status: 429,
+            calls: Cell::new(0),
+        };
+        let retrying = RetryingApi::new(scripted, 4, record_pause);
+        assert_eq!(retrying.get("/x").unwrap(), Json::Null);
+        PAUSES.with(|pauses| assert_eq!(*pauses.borrow(), vec![RATE_LIMIT_PAUSE]));
+    }
+
+    #[test]
+    fn recognises_secondary_rate_limit_body_on_403() {
+        let error = parse_response(
+            "/search/commits",
+            "{\"message\":\"You have exceeded a secondary rate limit.\"}\n403",
+        )
+        .unwrap_err();
+        assert!(error.is_rate_limited());
+        assert!(!error.is_server_error());
     }
 
     #[test]

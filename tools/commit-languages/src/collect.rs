@@ -6,9 +6,7 @@ use crate::json::Json;
 pub const PAGE_SIZE: usize = 100;
 pub const MAX_PAGES: usize = 10;
 
-// GitHub answers 500 to every retry for this repository's commit listing, so the
-// run would never finish. Remove it from this list once that is investigated.
-const EXCLUDED_REPOS: &[&str] = &["klockmt/hanoip-kronix"];
+const EXCLUDED_REPOS: &[&str] = &[];
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct CommitRef {
@@ -71,13 +69,15 @@ fn search_ref(item: &Json) -> Option<CommitRef> {
 
 fn list_owned_repo_commits(author: &str, api: &dyn GithubApi) -> Result<Vec<CommitRef>, ApiError> {
     let mut refs = Vec::new();
-    for repo in owned_repo_names(api)? {
+    for repo in owned_private_repo_names(api)? {
         refs.extend(list_repo_commits(&repo, author, api)?);
     }
     Ok(refs)
 }
 
-fn owned_repo_names(api: &dyn GithubApi) -> Result<Vec<String>, ApiError> {
+// Public repositories are already covered by the author search. Listing commits per
+// repository is only needed for private ones, and it is too slow on very large histories.
+fn owned_private_repo_names(api: &dyn GithubApi) -> Result<Vec<String>, ApiError> {
     let items = fetch_all(
         api,
         |page| {
@@ -89,6 +89,7 @@ fn owned_repo_names(api: &dyn GithubApi) -> Result<Vec<String>, ApiError> {
     )?;
     Ok(items
         .iter()
+        .filter(|repo| repo.get("private").and_then(Json::as_bool) == Some(true))
         .filter(|repo| repo.get("fork").and_then(Json::as_bool) != Some(true))
         .filter_map(|repo| repo.get("full_name").and_then(Json::as_str))
         .filter(|name| !is_excluded(name))
@@ -202,7 +203,7 @@ mod tests {
             )
             .with_body(
                 REPOS_PAGE_1,
-                r#"[{"full_name":"klockmt/public","fork":false},{"full_name":"klockmt/secret","fork":false}]"#,
+                r#"[{"full_name":"klockmt/public","fork":false,"private":false},{"full_name":"klockmt/secret","fork":false,"private":true}]"#,
             )
             .with_body(&repo_commits_path("klockmt/public", 1), r#"[{"sha":"s1"}]"#)
             .with_body(&repo_commits_path("klockmt/secret", 1), r#"[{"sha":"p1"},{"sha":"p2"}]"#);
@@ -215,12 +216,12 @@ mod tests {
     }
 
     #[test]
-    fn skips_forks_and_excluded_repositories() {
+    fn lists_commits_only_for_private_non_fork_repositories() {
         let api = FakeGithubApi::new()
             .with_body(SEARCH_PAGE_1, r#"{"items":[]}"#)
             .with_body(
                 REPOS_PAGE_1,
-                r#"[{"full_name":"klockmt/mine","fork":false},{"full_name":"klockmt/fork","fork":true},{"full_name":"klockmt/hanoip-kronix","fork":false}]"#,
+                r#"[{"full_name":"klockmt/mine","fork":false,"private":true},{"full_name":"klockmt/fork","fork":true,"private":true},{"full_name":"klockmt/open","fork":false,"private":false}]"#,
             )
             .with_body(&repo_commits_path("klockmt/mine", 1), r#"[{"sha":"m1"}]"#);
         let commits = list_authored_commits("klockmt", &api).unwrap();
@@ -231,10 +232,9 @@ mod tests {
                 sha: "m1".into()
             }]
         );
-        assert!(!api
-            .requested_paths()
-            .iter()
-            .any(|path| path.contains("hanoip-kronix")));
+        let requested = api.requested_paths();
+        assert!(!requested.iter().any(|path| path.contains("klockmt/fork/")));
+        assert!(!requested.iter().any(|path| path.contains("klockmt/open/")));
     }
 
     #[test]
