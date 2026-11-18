@@ -51,6 +51,7 @@ pub struct StatsTotals {
     pub pull_requests: u64,
     pub issues: u64,
     pub stars: u64,
+    pub contributed_repos: u64,
 }
 
 pub fn collect_totals(
@@ -63,7 +64,18 @@ pub fn collect_totals(
         pull_requests: search_total(&format!("author:{author}+type:pr"), api)?,
         issues: search_total(&format!("author:{author}+type:issue"), api)?,
         stars: owned_star_count(author, api)?,
+        contributed_repos: external_repo_count(author, commits),
     })
+}
+
+fn external_repo_count(author: &str, commits: &[CommitRef]) -> u64 {
+    let prefix = format!("{author}/");
+    let external: BTreeSet<&str> = commits
+        .iter()
+        .map(|commit| commit.repo.as_str())
+        .filter(|repo| !repo.starts_with(&prefix))
+        .collect();
+    external.len() as u64
 }
 
 fn search_total(query: &str, api: &dyn GithubApi) -> Result<u64, ApiError> {
@@ -386,6 +398,10 @@ mod tests {
                 repo: "klockmt/secret".into(),
                 sha: "p1".into(),
             },
+            CommitRef {
+                repo: "someone/project".into(),
+                sha: "x1".into(),
+            },
         ];
         let api = FakeGithubApi::new()
             .with_body("/search/issues?q=author:klockmt+type:pr&per_page=1", r#"{"total_count":12,"items":[]}"#)
@@ -398,7 +414,8 @@ mod tests {
         assert_eq!(
             totals,
             StatsTotals {
-                commits: 2,
+                contributed_repos: 1,
+                commits: 3,
                 pull_requests: 12,
                 issues: 4,
                 stars: 9
