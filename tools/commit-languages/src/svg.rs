@@ -3,6 +3,7 @@ const BAR_MAX_WIDTH: f64 = 260.0;
 const ROW_HEIGHT: f64 = 30.0;
 const FIRST_ROW_Y: f64 = 20.0;
 const CANVAS_WIDTH: f64 = 540.0;
+const VALUE_X: f64 = 160.0;
 
 pub fn render(top: &[(&str, usize)], total_commits: usize) -> String {
     if top.is_empty() {
@@ -19,6 +20,34 @@ pub fn render(top: &[(&str, usize)], total_commits: usize) -> String {
         .collect();
     let height = FIRST_ROW_Y + ROW_HEIGHT * top.len() as f64;
     wrap(height, &rows.join("\n"))
+}
+
+pub fn render_stats(totals: &crate::collect::StatsTotals) -> String {
+    let rows = [
+        ("Commits", totals.commits),
+        ("Pull requests", totals.pull_requests),
+        ("Issues", totals.issues),
+        ("Stars", totals.stars),
+    ];
+    let body: Vec<String> = rows
+        .iter()
+        .enumerate()
+        .map(|(index, (label, value))| stat_row(index, label, *value))
+        .collect();
+    wrap(
+        FIRST_ROW_Y + ROW_HEIGHT * rows.len() as f64,
+        &body.join("\n"),
+    )
+}
+
+fn stat_row(index: usize, label: &str, value: u64) -> String {
+    let y = FIRST_ROW_Y + ROW_HEIGHT * index as f64;
+    format!(
+        "  <text x=\"0\" y=\"{text_y}\" fill=\"#888\">{label}</text>\n  \
+         <text x=\"{VALUE_X}\" y=\"{text_y}\" font-weight=\"600\" fill=\"#2f81f7\">{value}</text>",
+        text_y = y + 12.0,
+        label = escape(label),
+    )
 }
 
 fn wrap(height: f64, body: &str) -> String {
@@ -58,6 +87,28 @@ mod tests {
         let svg = render(&[("Python", 3), ("Shell", 1)], 4);
         assert!(svg.contains("Python"));
         assert!(svg.contains("3 commits (75.0%)"));
+    }
+
+    #[test]
+    fn renders_stats_rows_with_values() {
+        let totals = crate::collect::StatsTotals {
+            commits: 800,
+            pull_requests: 12,
+            issues: 4,
+            stars: 9,
+        };
+        let svg = render_stats(&totals);
+        for expected in [
+            "Commits",
+            "Pull requests",
+            "Issues",
+            "Stars",
+            ">800<",
+            ">12<",
+            ">9<",
+        ] {
+            assert!(svg.contains(expected), "missing {expected}");
+        }
     }
 
     #[test]

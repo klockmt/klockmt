@@ -11,7 +11,7 @@ use std::path::PathBuf;
 use std::process::ExitCode;
 use std::thread;
 
-use collect::{count_commits_per_language, list_authored_commits, top_languages};
+use collect::{collect_totals, count_commits_per_language, list_authored_commits, top_languages};
 use github::{CurlApi, RetryingApi};
 
 const DEFAULT_OUTPUT_DIR: &str = "dist";
@@ -48,6 +48,12 @@ fn run() -> Result<String, String> {
     fs::write(
         output_dir.join("commit-languages.svg"),
         svg::render(&top, commits.len()),
+    )
+    .map_err(|error| error.to_string())?;
+    let totals = collect_totals(&author, &commits, &api).map_err(|error| error.to_string())?;
+    fs::write(
+        output_dir.join("github-stats.svg"),
+        svg::render_stats(&totals),
     )
     .map_err(|error| error.to_string())?;
     Ok(format!(

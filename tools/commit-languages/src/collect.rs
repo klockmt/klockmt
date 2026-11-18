@@ -45,6 +45,52 @@ pub fn top_languages<'a>(counts: &BTreeMap<&'a str, usize>, limit: usize) -> Vec
     ranked
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct StatsTotals {
+    pub commits: u64,
+    pub pull_requests: u64,
+    pub issues: u64,
+    pub stars: u64,
+}
+
+pub fn collect_totals(
+    author: &str,
+    commits: &[CommitRef],
+    api: &dyn GithubApi,
+) -> Result<StatsTotals, ApiError> {
+    Ok(StatsTotals {
+        commits: commits.len() as u64,
+        pull_requests: search_total(&format!("author:{author}+type:pr"), api)?,
+        issues: search_total(&format!("author:{author}+type:issue"), api)?,
+        stars: owned_star_count(author, api)?,
+    })
+}
+
+fn search_total(query: &str, api: &dyn GithubApi) -> Result<u64, ApiError> {
+    let body = api.get(&format!("/search/issues?q={query}&per_page=1"))?;
+    Ok(body.get("total_count").and_then(Json::as_u64).unwrap_or(0))
+}
+
+fn owned_star_count(author: &str, api: &dyn GithubApi) -> Result<u64, ApiError> {
+    let repos = fetch_all(
+        api,
+        |page| {
+            format!("/user/repos?affiliation=owner&visibility=all&per_page={PAGE_SIZE}&page={page}")
+        },
+        Json::as_array,
+    )?;
+    Ok(repos
+        .iter()
+        .filter(|repo| repo.get("fork").and_then(Json::as_bool) != Some(true))
+        .filter(|repo| owner_login(repo) == Some(author))
+        .filter_map(|repo| repo.get("stargazers_count").and_then(Json::as_u64))
+        .sum())
+}
+
+fn owner_login(repo: &Json) -> Option<&str> {
+    repo.get("owner")?.get("login")?.as_str()
+}
+
 fn search_public_commits(author: &str, api: &dyn GithubApi) -> Result<Vec<CommitRef>, ApiError> {
     let items = fetch_all(
         api,
@@ -326,6 +372,37 @@ mod tests {
                 ("VBA", 4),
                 ("Java", 3)
             ]
+        );
+    }
+
+    #[test]
+    fn collects_totals_counting_private_commits_and_owned_stars() {
+        let commits = vec![
+            CommitRef {
+                repo: "klockmt/public".into(),
+                sha: "s1".into(),
+            },
+            CommitRef {
+                repo: "klockmt/secret".into(),
+                sha: "p1".into(),
+            },
+        ];
+        let api = FakeGithubApi::new()
+            .with_body("/search/issues?q=author:klockmt+type:pr&per_page=1", r#"{"total_count":12,"items":[]}"#)
+            .with_body("/search/issues?q=author:klockmt+type:issue&per_page=1", r#"{"total_count":4,"items":[]}"#)
+            .with_body(
+                "/user/repos?affiliation=owner&visibility=all&per_page=100&page=1",
+                r#"[{"full_name":"klockmt/public","fork":false,"owner":{"login":"klockmt"},"stargazers_count":7},{"full_name":"klockmt/secret","fork":false,"owner":{"login":"klockmt"},"stargazers_count":2},{"full_name":"x/theirs","fork":false,"owner":{"login":"other"},"stargazers_count":99}]"#,
+            );
+        let totals = collect_totals("klockmt", &commits, &api).unwrap();
+        assert_eq!(
+            totals,
+            StatsTotals {
+                commits: 2,
+                pull_requests: 12,
+                issues: 4,
+                stars: 9
+            }
         );
     }
 
