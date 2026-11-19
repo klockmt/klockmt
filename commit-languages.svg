@@ -2,10 +2,10 @@
   <text x="0" y="22" font-size="16" font-weight="700" fill="#2f81f7">Top commit languages</text>
   <text x="0" y="62" fill="#888">Java</text>
   <rect x="100" y="50" width="180" height="14" rx="3" fill="#2f81f7"/>
-  <text x="288" y="62" fill="#888">143 commits (17.5%)</text>
+  <text x="288" y="62" fill="#888">143 commits (17.4%)</text>
   <text x="0" y="92" fill="#888">Rust</text>
-  <rect x="100" y="80" width="42" height="14" rx="3" fill="#2f81f7"/>
-  <text x="150" y="92" fill="#888">33 commits (4.0%)</text>
+  <rect x="100" y="80" width="45" height="14" rx="3" fill="#2f81f7"/>
+  <text x="153" y="92" fill="#888">36 commits (4.4%)</text>
   <text x="0" y="122" fill="#888">Shell</text>
   <rect x="100" y="110" width="30" height="14" rx="3" fill="#2f81f7"/>
   <text x="138" y="122" fill="#888">24 commits (2.9%)</text>

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="270" height="200" font-family="Segoe UI, Ubuntu, sans-serif" font-size="14">
   <text x="0" y="22" font-size="16" font-weight="700" fill="#2f81f7">Geral</text>
   <text x="0" y="62" fill="#888">Commits</text>
-  <text x="190" y="62" font-weight="600" fill="#2f81f7">819</text>
+  <text x="190" y="62" font-weight="600" fill="#2f81f7">822</text>
   <text x="0" y="92" fill="#888">Pull requests</text>
   <text x="190" y="92" font-weight="600" fill="#2f81f7">9</text>
   <text x="0" y="122" fill="#888">Issues</text>
